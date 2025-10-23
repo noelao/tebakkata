@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xixixi...</title>
+    <style>
+        :root {
+            --gelap : #1B1C1D;
+            --terang : #fafafa;
+        }
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: var(--gelap);
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            .barisHuruf {
+                display: flex;
+                .kotakHuruf {
+                    height: 5rem;
+                    width: 5rem;
+                    border:solid var(--terang) 3px;
+                    background-color: transparent;
+                    align-items: center;
+                    justify-content: center;
+                    color: var(--terang);
+                    text-align: center;
+
+                    font-size: 4rem;
+                    outline: none;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+        </div>
+    </div>
+<script>
+    const kata = [
+        ["k", "a", "t", "a"],
+        ["r", "u", "p", "a"]
+    ]
+    const kata2 = [
+        ["h", "i", "t", "a", "m"],
+        ["k", "u", "s", "a", "m"]
+    ]
+    const data = [
+        kata,
+        kata2
+    ];
+
+    ambilKata();
+
+    async function ambilKata() {
+        try {
+            
+        } catch (err){
+            console.log(err);
+        } finally {
+            const maximalJumlahHuruf = 5;
+            const maximalJumlahKata = 1;
+            const xHuruf = Math.round(Math.random() * (maximalJumlahHuruf - 4) + 4);
+            console.log(xHuruf);
+            const xKe = Math.round(Math.random() * (maximalJumlahKata - 0) + 0);
+            const xColumn = xHuruf - 4;
+
+            console.log(xColumn);
+            console.log(xKe);
+            
+            console.log(data[xColumn][xKe]);
+
+
+            const wrapper = document.querySelector(".wrapper");
+            for (let i = 0; i < 5; i++){
+                const barisHuruf = document.createElement('div');
+                barisHuruf.className = "barisHuruf";
+
+                for (let g = 0; g < xHuruf; g++){
+                    const kotakHuruf = document.createElement('input');
+                    kotakHuruf.type = 'text';
+                    kotakHuruf.setAttribute('maxlength', '1');
+                    kotakHuruf.className = "kotakHuruf";
+
+                    barisHuruf.appendChild(kotakHuruf);
+                }
+                
+                wrapper.appendChild(barisHuruf);
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const inputs = document.querySelectorAll('input');
+
+                inputs.forEach((input, index) => {
+                    
+                    // 1. Event Listener untuk Otomatis Pindah
+                    input.addEventListener('input', () => {
+                        const nextInput = inputs[index + 1];
+                        
+                        // Cek apakah input sudah terisi dan ada input berikutnya
+                        if (input.value.length === 1 && nextInput) {
+                            console.log(input.value);
+
+                            data[xColumn][xKe].forEach((ini, i)=>{
+                                if (input.value == ini && i == (index % xHuruf)){
+                                    input.style.backgroundColor = "var(--terang)";
+                                    input.style.color = "var(--gelap)";
+                                }
+                                else if (input.value == ini){
+                                    input.style.backgroundColor = "#ccc";
+                                    input.style.color = "var(--terang)";
+                                } else {
+                                    // input.style.backgroundColor = "transparent";
+                                    // input.style.color = "var(--terang)";
+                                }
+                            })
+
+
+                            nextInput.focus();
+                        }
+                    });
+
+                    // 2. (Opsional) Event Listener untuk Hapus (Backspace)
+                    // Ini meningkatkan pengalaman pengguna (UX) agar bisa pindah mundur
+                    input.addEventListener('keydown', (event) => {
+                        const prevInput = inputs[index - 1];
+
+                        // Cek jika tombol yang ditekan adalah Backspace atau Delete
+                        if ((event.key === 'Backspace' || event.key === 'Delete') && input.value.length === 0 && prevInput) {
+                            prevInput.focus();
+                        }
+                    });
+
+                    // 3. (Opsional) Pastikan Input Hanya Angka/Huruf
+                    // Mencegah pengguna menempel (paste) string panjang
+                    input.addEventListener('paste', (event) => {
+                        event.preventDefault();
+                        const pasteData = event.clipboardData.getData('text').trim();
+                        
+                        // Loop dan isi semua input jika string yang ditempel panjang
+                        for (let i = 0; i < pasteData.length && index + i < inputs.length; i++) {
+                            inputs[index + i].value = pasteData[i];
+                        }
+                        
+                        // Pindahkan fokus ke input terakhir yang diisi
+                        if (index + pasteData.length < inputs.length) {
+                            inputs[index + pasteData.length].focus();
+                        } else {
+                            inputs[inputs.length - 1].focus(); // Fokus ke yang terakhir
+                        }
+                    });
+
+                });
+            });
+
+        }
+    }
+    
+</script>
+</body>
+</html>
