@@ -42,6 +42,7 @@
                 .kotakHuruf {
                     height: 5rem;
                     width: 5rem;
+                    aspect-ratio: 1;
 
                     border: none;
                     border-top:solid var(--terang) 3px;
@@ -69,14 +70,14 @@
 
         @media screen and (max-width : 376px){
             .wrapper {
-                display: grid;
-                /* grid-template-rows: repeat(1, 3rem); */
                 .barisHuruf {
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
+                    grid-template-rows: repeat(1, 3rem);
                     .kotakHuruf {
-                        height: 4rem;
-                        width: 4rem;
-                        font-size: 3rem;
                         aspect-ratio: 1;
+                        font-size: 3rem;
                     }
                 }
             }
