@@ -63,4 +63,6 @@ function cekApakahAngka(str) {
   // 3. Coba konversi dan cek apakah hasilnya BUKAN NaN
   return !Number.isNaN(Number(str));
 }
+
+
 bacaFile();

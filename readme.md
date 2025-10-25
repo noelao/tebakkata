@@ -1,3 +1,6 @@
 # game tebak kata
+dibuat oleh noelao, terinspirasi dari game seseorang di facebook,
+dicoding dari Oktober 23 2025;
+
 ## next update :
-- kasih clue di baris awal
+- ui yang lebih mantab

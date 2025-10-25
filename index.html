@@ -9,6 +9,7 @@
         :root {
             --gelap : #1B1C1D;
             --terang : #fafafa;
+            --terangSemu : color-mix(in oklab, #fafafa, transparent 20%);
         }
         * {
             padding: 0;
@@ -73,6 +74,36 @@
                 }
             }
         }
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100%);
+
+            height: 12rem;
+            width: 23rem;
+            background-color: var(--terangSemu);
+
+            transition: transform .3s ease;
+
+            color: var(--gelap);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 1rem;
+            gap: 2rem;
+            .tombolLanjut {
+                padding: 0 1rem;
+                background-color: var(--gelap);
+                color: var(--terang);
+                font-size: 2rem;
+                cursor: pointer;
+            }
+        }
+        .popup.muncul {
+            transform: translateX(-50%) translateY(0);
+        }
 
         @media screen and (max-width : 376px){
             .wrapper {
@@ -98,49 +129,12 @@
         </div>
         <div class="wrapper">
         </div>
+        <div class="popup">
+            <h2></h2>
+        </div>
     </div>
 <script>
-    const kelompok = [
-        ["b", "u", "k", "u"],
-        ["m", "e", "j", "a"],
-        ["t", "a", "l", "i"],
-        ["d", "a", "s", "i"],
-        ["t", "o", "p", "i"]
-    ]
-    const kelompok2 = [
-        ["n", "a", "n", "a", "s"],
-        ["m", "e", "l", "o", "n"],
-        ["a", "p", "p", "l", "e"],
-        ["j", "e", "r", "u", "k"],
-        ["s", "a", "l", "a", "k"],
-        ["j", "a", "m", "b", "u"]
-    ]
-    let data = [
-        {
-            clue:"nama nama alat di lingkungan kelas",
-            jumlahHuruf: 4,
-            benda:kelompok
-        },
-        {
-            clue:"nama nama buah",
-            jumlahHuruf: 5,
-            benda:kelompok2
-        },
-        {
-            clue: 'kendaaraan',
-            jumlahHuruf: 5,
-            benda: [
-                [ 'm', 'o', 't', 'o', 'r' ],
-                [ 'm', 'o', 'b', 'i', 'l' ],
-                [ 'b', 'a', 'j', 'a', 'i' ],
-                [ 'b', 'e', 'c', 'a', 'k' ],
-                [ 'd', 'o', 'k', 'a', 'r' ],
-                [ 's', 'e', 'p', 'u', 'r' ],
-                [ 't', 'r', 'u', 'c', 'k' ],
-                [ 'd', 'o', 's', 'e', 'r' ]
-            ]
-        }
-    ];
+    let data = [];
 
     let skorBenar = 0;
 
@@ -175,6 +169,11 @@
             h2Clue.innerHTML = data[xColumn].clue;
             clueDiv.appendChild(h2Clue);
             wrapper.appendChild(clueDiv);
+
+            
+            const jawaban = data[xColumn].benda[xKe].map(ini=>{
+                return ini;
+            }).join("");
 
 
             for (let i = 0; i < 5; i++){
@@ -219,41 +218,10 @@
                     if (input.value.length === 1) {
                         arrJawab[iBaris] = input.value;
 
-                        // data[xColumn].benda[xKe].some((ini, i)=>{
-                        //     if (input.value == ini){
-                        //         if (i == (iBaris)){
-                        //             input.style.backgroundColor = "var(--terang)";
-                        //             input.style.color = "var(--gelap)";
-                        //             cekBerhasil[iBaris] = true;
-                        //             return true;
-                        //         } else {
-                        //             input.style.backgroundColor = "#ccc";
-                        //             input.style.color = "var(--terang)";
-                        //             cekBerhasil[iBaris] = false;
-                        //         }
-                        //     } else {
-                        //         // input.style.backgroundColor = "transparent";
-                        //         // input.style.color = "var(--terang)";
-                        //         cekBerhasil[iBaris] = false;
-                        //     }
-                        // });
-
-                        // cekBerhasil.some((apa,i)=>{
-                        //     if(apa){
-                        //         if(i == cekBerhasil.length-1){
-                        //             alert("tahniah teman, kau dah berjaya menebaknye");
-                        //             // location.reload();
-                        //             wrapper.innerHTML = "";
-                        //             ambilKata();
-                        //             tambahSkor();
-                        //         }
-                        //     } else {
-                        //         return true;
-                        //     }
-                        // })
-
                         if(nextInput){
                             nextInput.focus();
+                        } else {
+                            lakukanPopup(("jawaban yang benar adalah " + jawaban));
                         }
                     }
 
@@ -300,6 +268,29 @@
         }
     }
 
+    function lakukanPopup(kata){
+        const popup = document.querySelector(".popup");
+        popup.innerHTML = "";
+        popup.classList.add("muncul");
+        
+        const kalimat = document.createElement("h2");
+        kalimat.textContent = kata;
+        popup.appendChild(kalimat);
+        
+        const tombol = document.createElement("div");
+        tombol.className = "tombolLanjut";
+        tombol.textContent = "lanjut";
+        tombol.addEventListener("click", function(){
+            popup.classList.remove("muncul");
+            wrapper.innerHTML = "";
+            ambilKata();
+            tambahSkor();
+        })
+
+        popup.appendChild(tombol);
+
+    }
+
     function checkJawabanColom(data, xColumn, xKe, arrJawab, indexInput, inputs, xHuruf){
         const kunci = data[xColumn].benda[xKe]
         console.log(arrJawab);
@@ -310,11 +301,8 @@
         kunci.some((ini, i)=>{
             if(ini == arrJawab[i]){
                 if(i == arrJawab.length-1){
-                    alert("tahniah teman, kau dah berjaya menebaknye");
+                    lakukanPopup("tahniah teman, kau dah berjaya menebaknye");
                     // location.reload();
-                    wrapper.innerHTML = "";
-                    ambilKata();
-                    tambahSkor();
                 }
             } else {
                 return true;

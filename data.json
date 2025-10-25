@@ -1,1 +1,173 @@
-[{"clue":"buah","jumlahHuruf":4,"benda":[["d","o","y","o"]]},{"clue":"buah","jumlahHuruf":5,"benda":[["m","e","l","o","n"],["j","e","r","u","k"],["n","a","n","a","s"],["a","p","p","l","e"],["s","a","l","a","k"],["m","e","l","o","n"],["b","e","r","r","y"],["j","a","m","b","u"],["s","u","i","k","a"]]},{"clue":"buah","jumlahHuruf":6,"benda":[["m","a","n","g","g","a"],["a","n","g","g","u","r"],["p","e","p","a","y","a"],["p","i","s","a","n","g"],["k","a","r","s","e","m"]]},{"clue":"buah","jumlahHuruf":7,"benda":[["a","l","p","u","k","a","t"]]},{"clue":"sayur","jumlahHuruf":5,"benda":[["b","a","y","a","m"],["j","a","m","u","r"],["t","i","r","a","m"]]},{"clue":"sayur","jumlahHuruf":6,"benda":[["w","o","r","t","e","l"],["t","e","r","o","n","g"]]},{"clue":"serangga","jumlahHuruf":4,"benda":[["k","u","t","u"]]},{"clue":"serangga","jumlahHuruf":5,"benda":[["l","a","l","a","t"],["s","e","m","u","t"]]},{"clue":"serangga","jumlahHuruf":6,"benda":[["n","y","a","m","u","k"],["c","a","p","u","n","g"],["t","o","m","k","e","t"]]},{"clue":"serangga","jumlahHuruf":8,"benda":[["j","a","n","g","k","r","i","k"]]},{"clue":"hewan","jumlahHuruf":4,"benda":[["a","y","a","m"],["s","a","p","i"],["b","a","b","i"],["u","l","a","r"],["u","n","t","a"],["i","k","a","n"],["k","u","d","a"],["n","a","g","a"],["p","a","u","s"]]},{"clue":"hewan","jumlahHuruf":5,"benda":[["k","a","t","a","k"],["t","i","k","u","s"],["m","a","c","a","n"],["e","n","t","o","k"],["b","e","b","e","k"],["t","u","p","a","i"],["k","a","d","a","l"],["s","o","a","n","g"],["a","n","g","s","a"],["e","l","a","n","g"],["b","e","l","u","t"],["k","e","o","n","g"],["s","i","p","u","t"],["b","u","a","y","a"],["l","l","a","m","a"],["t","e","m","a","n"],["c","u","r","u","t"],["s","i","n","g","a"],["c","o","d","o","t"]]},{"clue":"hewan","jumlahHuruf":6,"benda":[["b","u","r","u","n","g"],["k","e","r","b","a","u"],["k","u","c","i","n","g"],["m","a","r","m","o","t"],["b","i","a","w","a","k"],["d","u","g","o","n","g"]]},{"clue":"hewan","jumlahHuruf":7,"benda":[["k","e","l","e","d","a","i"],["c","e","m","p","l","u","k"],["m","a","n","u","s","i","a"],["k","a","n","g","o","r","o"],["k","a","m","b","i","n","g"]]},{"clue":"hewan","jumlahHuruf":8,"benda":[["p","l","a","t","i","p","u","s"],["k","u","r","a","k","u","r","a"],["k","u","p","u","k","u","p","u"],["a","l","i","g","a","t","o","r"]]},{"clue":"warna","jumlahHuruf":4,"benda":[["b","i","r","u"],["p","i","n","k"],["b","l","u","e"],["o","r","e","n"],["u","n","g","u"],["n","i","l","a"]]},{"clue":"warna","jumlahHuruf":5,"benda":[["m","e","r","a","h"],["h","i","j","a","u"],["t","o","s","k","a"],["p","u","t","i","h"],["h","i","t","a","m"],["g","e","l","a","p"],["c","e","r","a","h"],["k","l","a","w","u"]]}]
+[
+  { "clue": "buah", "jumlahHuruf": 4, "benda": [["d", "o", "y", "o"]] },
+  {
+    "clue": "buah",
+    "jumlahHuruf": 5,
+    "benda": [
+      ["m", "e", "l", "o", "n"],
+      ["j", "e", "r", "u", "k"],
+      ["n", "a", "n", "a", "s"],
+      ["a", "p", "p", "l", "e"],
+      ["s", "a", "l", "a", "k"],
+      ["m", "e", "l", "o", "n"],
+      ["b", "e", "r", "r", "y"],
+      ["j", "a", "m", "b", "u"],
+      ["s", "u", "i", "k", "a"]
+    ]
+  },
+  {
+    "clue": "buah",
+    "jumlahHuruf": 6,
+    "benda": [
+      ["m", "a", "n", "g", "g", "a"],
+      ["a", "n", "g", "g", "u", "r"],
+      ["p", "e", "p", "a", "y", "a"],
+      ["p", "i", "s", "a", "n", "g"],
+      ["k", "a", "r", "s", "e", "m"]
+    ]
+  },
+  {
+    "clue": "buah",
+    "jumlahHuruf": 7,
+    "benda": [["a", "l", "p", "u", "k", "a", "t"]]
+  },
+  {
+    "clue": "sayur",
+    "jumlahHuruf": 5,
+    "benda": [
+      ["b", "a", "y", "a", "m"],
+      ["j", "a", "m", "u", "r"],
+      ["t", "i", "r", "a", "m"]
+    ]
+  },
+  {
+    "clue": "sayur",
+    "jumlahHuruf": 6,
+    "benda": [
+      ["w", "o", "r", "t", "e", "l"],
+      ["t", "e", "r", "o", "n", "g"]
+    ]
+  },
+  { "clue": "serangga", "jumlahHuruf": 4, "benda": [["k", "u", "t", "u"]] },
+  {
+    "clue": "serangga",
+    "jumlahHuruf": 5,
+    "benda": [
+      ["l", "a", "l", "a", "t"],
+      ["s", "e", "m", "u", "t"]
+    ]
+  },
+  {
+    "clue": "serangga",
+    "jumlahHuruf": 6,
+    "benda": [
+      ["n", "y", "a", "m", "u", "k"],
+      ["c", "a", "p", "u", "n", "g"],
+      ["t", "o", "m", "k", "e", "t"]
+    ]
+  },
+  {
+    "clue": "serangga",
+    "jumlahHuruf": 8,
+    "benda": [["j", "a", "n", "g", "k", "r", "i", "k"]]
+  },
+  {
+    "clue": "hewan",
+    "jumlahHuruf": 4,
+    "benda": [
+      ["a", "y", "a", "m"],
+      ["s", "a", "p", "i"],
+      ["b", "a", "b", "i"],
+      ["u", "l", "a", "r"],
+      ["u", "n", "t", "a"],
+      ["i", "k", "a", "n"],
+      ["k", "u", "d", "a"],
+      ["n", "a", "g", "a"],
+      ["p", "a", "u", "s"]
+    ]
+  },
+  {
+    "clue": "hewan",
+    "jumlahHuruf": 5,
+    "benda": [
+      ["k", "a", "t", "a", "k"],
+      ["t", "i", "k", "u", "s"],
+      ["m", "a", "c", "a", "n"],
+      ["e", "n", "t", "o", "k"],
+      ["b", "e", "b", "e", "k"],
+      ["t", "u", "p", "a", "i"],
+      ["k", "a", "d", "a", "l"],
+      ["s", "o", "a", "n", "g"],
+      ["a", "n", "g", "s", "a"],
+      ["e", "l", "a", "n", "g"],
+      ["b", "e", "l", "u", "t"],
+      ["k", "e", "o", "n", "g"],
+      ["s", "i", "p", "u", "t"],
+      ["b", "u", "a", "y", "a"],
+      ["l", "l", "a", "m", "a"],
+      ["t", "e", "m", "a", "n"],
+      ["c", "u", "r", "u", "t"],
+      ["s", "i", "n", "g", "a"],
+      ["c", "o", "d", "o", "t"]
+    ]
+  },
+  {
+    "clue": "hewan",
+    "jumlahHuruf": 6,
+    "benda": [
+      ["b", "u", "r", "u", "n", "g"],
+      ["k", "e", "r", "b", "a", "u"],
+      ["k", "u", "c", "i", "n", "g"],
+      ["m", "a", "r", "m", "o", "t"],
+      ["b", "i", "a", "w", "a", "k"],
+      ["d", "u", "g", "o", "n", "g"]
+    ]
+  },
+  {
+    "clue": "hewan",
+    "jumlahHuruf": 7,
+    "benda": [
+      ["k", "e", "l", "e", "d", "a", "i"],
+      ["c", "e", "m", "p", "l", "u", "k"],
+      ["m", "a", "n", "u", "s", "i", "a"],
+      ["k", "a", "n", "g", "o", "r", "o"],
+      ["k", "a", "m", "b", "i", "n", "g"]
+    ]
+  },
+  {
+    "clue": "hewan",
+    "jumlahHuruf": 8,
+    "benda": [
+      ["p", "l", "a", "t", "i", "p", "u", "s"],
+      ["k", "u", "r", "a", "k", "u", "r", "a"],
+      ["k", "u", "p", "u", "k", "u", "p", "u"],
+      ["a", "l", "i", "g", "a", "t", "o", "r"]
+    ]
+  },
+  {
+    "clue": "warna",
+    "jumlahHuruf": 4,
+    "benda": [
+      ["b", "i", "r", "u"],
+      ["p", "i", "n", "k"],
+      ["b", "l", "u", "e"],
+      ["o", "r", "e", "n"],
+      ["u", "n", "g", "u"],
+      ["n", "i", "l", "a"]
+    ]
+  },
+  {
+    "clue": "warna",
+    "jumlahHuruf": 5,
+    "benda": [
+      ["m", "e", "r", "a", "h"],
+      ["h", "i", "j", "a", "u"],
+      ["t", "o", "s", "k", "a"],
+      ["p", "u", "t", "i", "h"],
+      ["h", "i", "t", "a", "m"],
+      ["g", "e", "l", "a", "p"],
+      ["c", "e", "r", "a", "h"],
+      ["k", "l", "a", "w", "u"]
+    ]
+  }
+]
