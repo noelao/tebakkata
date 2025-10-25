@@ -1,0 +1,41 @@
+>>buah
+4 huruf
+doyo
+5 huruf
+melon jeruk nanas apple salak melon berry jambu suika
+6 huruf
+mangga anggur pepaya pisang karsem
+7 huruf
+alpukat
+>>sayur
+5 huruf
+bayam jamur tiram
+6 huruf
+wortel terong
+>>serangga
+4 huruf
+kutu
+5 huruf
+lalat semut
+6 huruf
+nyamuk capung tomket
+8 huruf
+jangkrik
+>>hewan
+4 huruf
+ayam sapi babi ular unta ikan kuda naga paus
+5 huruf
+katak tikus macan entok bebek tupai kadal soang angsa elang belut keong siput buaya llama teman curut singa codot
+6 huruf
+burung kerbau kucing marmot biawak dugong
+7 huruf
+keledai cempluk manusia kangoro kambing
+8 huruf
+platipus kurakura kupukupu aligator
+>>warna
+4 huruf
+biru pink blue oren ungu nila
+5 huruf
+merah hijau toska putih hitam gelap cerah klawu
+6 huruf
+kuning terang silver coklat bening

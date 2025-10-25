@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.svg" type="image/x-icon">
     <title>Xixixi...</title>
     <style>
         :root {
@@ -23,6 +24,12 @@
             flex-direction: column;
             background-color: var(--gelap);
             
+        }
+        .skor {
+            width: 16rem;
+            h2 {
+                color: var(--terang);
+            }
         }
         .wrapper {
             display: flex;
@@ -86,61 +93,95 @@
 </head>
 <body>
     <div class="container">
+        <div class="skor">
+            <h2></h2>
+        </div>
         <div class="wrapper">
-            <div class="clue">
-                <h2>cluenya adalah : </h2>
-            </div>
         </div>
     </div>
 <script>
-    const kata = [
+    const kelompok = [
         ["b", "u", "k", "u"],
         ["m", "e", "j", "a"],
         ["t", "a", "l", "i"],
         ["d", "a", "s", "i"],
-        ["t", "o", "p", "i"],
+        ["t", "o", "p", "i"]
     ]
-    const kata2 = [
+    const kelompok2 = [
         ["n", "a", "n", "a", "s"],
+        ["m", "e", "l", "o", "n"],
         ["a", "p", "p", "l", "e"],
         ["j", "e", "r", "u", "k"],
         ["s", "a", "l", "a", "k"],
         ["j", "a", "m", "b", "u"]
     ]
-    const data = [
+    let data = [
         {
             clue:"nama nama alat di lingkungan kelas",
-            benda:kata
+            jumlahHuruf: 4,
+            benda:kelompok
         },
         {
             clue:"nama nama buah",
-            benda:kata2
+            jumlahHuruf: 5,
+            benda:kelompok2
+        },
+        {
+            clue: 'kendaaraan',
+            jumlahHuruf: 5,
+            benda: [
+                [ 'm', 'o', 't', 'o', 'r' ],
+                [ 'm', 'o', 'b', 'i', 'l' ],
+                [ 'b', 'a', 'j', 'a', 'i' ],
+                [ 'b', 'e', 'c', 'a', 'k' ],
+                [ 'd', 'o', 'k', 'a', 'r' ],
+                [ 's', 'e', 'p', 'u', 'r' ],
+                [ 't', 'r', 'u', 'c', 'k' ],
+                [ 'd', 'o', 's', 'e', 'r' ]
+            ]
         }
     ];
 
+    let skorBenar = 0;
+
     ambilKata();
+    tambahSkor();
+
+    function tambahSkor(){
+        document.querySelector(".skor h2").textContent = "skor : "+skorBenar;
+        skorBenar += 1;
+    }
 
     async function ambilKata() {
+        const wrapper = document.querySelector(".wrapper");
         try {
+            const response = await fetch("./data.json");
+            const ini = await response.json();
+            console.log(ini.length);
+            data = ini;
             
         } catch (err){
             console.log(err);
         } finally {
-            const maximalJumlahHuruf = 5;
-            const maximalJumlahKata = 4;
-            const xHuruf = Math.round(Math.random() * (maximalJumlahHuruf - 4) + 4);
+            const xColumn = Math.round(Math.random() * (data.length-1 - 0) + 0);
+
+            const xHuruf = data[xColumn].jumlahHuruf;
             console.log("jumlah huruf : ", xHuruf);
-            const xKe = Math.round(Math.random() * (maximalJumlahKata - 0) + 0);
-            const xColumn = xHuruf - 4;
+            
+            const xKe = Math.round(Math.random() * ((data[xColumn].benda.length-1) - 0) + 0);
 
             console.log(xColumn);
             console.log(xKe);
             
             console.log(data[xColumn].benda[xKe]);
-            document.querySelector(".clue h2").innerHTML = data[xColumn].clue;
+            const clueDiv = document.createElement('div');
+            clueDiv.className = "clue";
+            const h2Clue = document.createElement('h2');
+            h2Clue.innerHTML = data[xColumn].clue;
+            clueDiv.appendChild(h2Clue);
+            wrapper.appendChild(clueDiv);
 
 
-            const wrapper = document.querySelector(".wrapper");
             for (let i = 0; i < 5; i++){
                 const barisHuruf = document.createElement('div');
                 barisHuruf.className = "barisHuruf";
@@ -157,95 +198,103 @@
                 wrapper.appendChild(barisHuruf);
             }
 
-            document.addEventListener('DOMContentLoaded', () => {
-                const inputs = document.querySelectorAll('input');
 
+
+            // gap so big
+
+            
+            const inputs = wrapper.querySelectorAll('input');
+
+            
+            let cekBerhasil = new Array(xHuruf).fill(false);
+            inputs[0].focus();
+            inputs.forEach((input, index) => {
                 
-                let cekBerhasil = new Array(xHuruf).fill(false);
-                inputs.forEach((input, index) => {
+                // 1. Event Listener untuk Otomatis Pindah
+                input.addEventListener('input', () => {
+                    const nextInput = inputs[index + 1];
+
+                    const iBaris = index % xHuruf;
                     
-                    // 1. Event Listener untuk Otomatis Pindah
-                    input.addEventListener('input', () => {
-                        const nextInput = inputs[index + 1];
+                    // Cek apakah input sudah terisi dan ada input berikutnya
+                    if (input.value.length === 1) {
 
-                        const iBaris = index % xHuruf;
-                        
-                        // Cek apakah input sudah terisi dan ada input berikutnya
-                        if (input.value.length === 1) {
-
-                            data[xColumn].benda[xKe].some((ini, i)=>{
-                                if (input.value == ini){
-                                    if (i == (iBaris)){
-                                        input.style.backgroundColor = "var(--terang)";
-                                        input.style.color = "var(--gelap)";
-                                        console.log("sama dan sama");
-                                        cekBerhasil[iBaris] = true;
-                                        return true;
-                                    } else {
-                                        input.style.backgroundColor = "#ccc";
-                                        input.style.color = "var(--terang)";
-                                        cekBerhasil[iBaris] = false;
-                                    }
+                        data[xColumn].benda[xKe].some((ini, i)=>{
+                            if (input.value == ini){
+                                if (i == (iBaris)){
+                                    input.style.backgroundColor = "var(--terang)";
+                                    input.style.color = "var(--gelap)";
+                                    console.log("sama dan sama");
+                                    cekBerhasil[iBaris] = true;
+                                    return true;
                                 } else {
-                                    // input.style.backgroundColor = "transparent";
-                                    // input.style.color = "var(--terang)";
+                                    input.style.backgroundColor = "#ccc";
+                                    input.style.color = "var(--terang)";
                                     cekBerhasil[iBaris] = false;
                                 }
-                            });
-
-                            cekBerhasil.some((apa,i)=>{
-                                if(apa){
-                                    if(i == cekBerhasil.length-1){
-                                        alert("tahniah teman bodoh, kau dah berjaya menebaknye");
-                                    }
-                                } else {
-                                    return true;
-                                }
-                            })
-
-                            if(nextInput){
-                                nextInput.focus();
+                            } else {
+                                // input.style.backgroundColor = "transparent";
+                                // input.style.color = "var(--terang)";
+                                cekBerhasil[iBaris] = false;
                             }
-                        }
+                        });
 
-                        if(iBaris == xHuruf-1){
-                            cekBerhasil = new Array(xHuruf).fill(false)
-                            console.log("array di perbaharui jadi false semua");
-                        }
+                        cekBerhasil.some((apa,i)=>{
+                            if(apa){
+                                if(i == cekBerhasil.length-1){
+                                    alert("tahniah teman, kau dah berjaya menebaknye");
+                                    // location.reload();
+                                    wrapper.innerHTML = "";
+                                    ambilKata();
+                                    tambahSkor();
+                                }
+                            } else {
+                                return true;
+                            }
+                        })
 
-                    });
-
-                    // 2. (Opsional) Event Listener untuk Hapus (Backspace)
-                    // Ini meningkatkan pengalaman pengguna (UX) agar bisa pindah mundur
-                    input.addEventListener('keydown', (event) => {
-                        const prevInput = inputs[index - 1];
-
-                        // Cek jika tombol yang ditekan adalah Backspace atau Delete
-                        if ((event.key === 'Backspace' || event.key === 'Delete') && input.value.length === 0 && prevInput) {
-                            prevInput.focus();
+                        if(nextInput){
+                            nextInput.focus();
                         }
-                    });
+                    }
 
-                    // 3. (Opsional) Pastikan Input Hanya Angka/Huruf
-                    // Mencegah pengguna menempel (paste) string panjang
-                    input.addEventListener('paste', (event) => {
-                        event.preventDefault();
-                        const pasteData = event.clipboardData.getData('text').trim();
-                        
-                        // Loop dan isi semua input jika string yang ditempel panjang
-                        for (let i = 0; i < pasteData.length && index + i < inputs.length; i++) {
-                            inputs[index + i].value = pasteData[i];
-                        }
-                        
-                        // Pindahkan fokus ke input terakhir yang diisi
-                        if (index + pasteData.length < inputs.length) {
-                            inputs[index + pasteData.length].focus();
-                        } else {
-                            inputs[inputs.length - 1].focus(); // Fokus ke yang terakhir
-                        }
-                    });
+                    if(iBaris == xHuruf-1){
+                        cekBerhasil = new Array(xHuruf).fill(false)
+                        console.log("array di perbaharui jadi false semua");
+                    }
 
                 });
+
+                // 2. (Opsional) Event Listener untuk Hapus (Backspace)
+                // Ini meningkatkan pengalaman pengguna (UX) agar bisa pindah mundur
+                input.addEventListener('keydown', (event) => {
+                    const prevInput = inputs[index - 1];
+
+                    // Cek jika tombol yang ditekan adalah Backspace atau Delete
+                    if ((event.key === 'Backspace' || event.key === 'Delete') && input.value.length === 0 && prevInput) {
+                        prevInput.focus();
+                    }
+                });
+
+                // 3. (Opsional) Pastikan Input Hanya Angka/Huruf
+                // Mencegah pengguna menempel (paste) string panjang
+                input.addEventListener('paste', (event) => {
+                    event.preventDefault();
+                    const pasteData = event.clipboardData.getData('text').trim();
+                    
+                    // Loop dan isi semua input jika string yang ditempel panjang
+                    for (let i = 0; i < pasteData.length && index + i < inputs.length; i++) {
+                        inputs[index + i].value = pasteData[i];
+                    }
+                    
+                    // Pindahkan fokus ke input terakhir yang diisi
+                    if (index + pasteData.length < inputs.length) {
+                        inputs[index + pasteData.length].focus();
+                    } else {
+                        inputs[inputs.length - 1].focus(); // Fokus ke yang terakhir
+                    }
+                });
+
             });
 
         }
