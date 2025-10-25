@@ -152,12 +152,12 @@
         skorBenar += 1;
     }
 
+    const wrapper = document.querySelector(".wrapper");
+
     async function ambilKata() {
-        const wrapper = document.querySelector(".wrapper");
         try {
             const response = await fetch("./data.json");
             const ini = await response.json();
-            console.log(ini.length);
             data = ini;
             
         } catch (err){
@@ -166,14 +166,9 @@
             const xColumn = Math.round(Math.random() * (data.length-1 - 0) + 0);
 
             const xHuruf = data[xColumn].jumlahHuruf;
-            console.log("jumlah huruf : ", xHuruf);
             
             const xKe = Math.round(Math.random() * ((data[xColumn].benda.length-1) - 0) + 0);
 
-            console.log(xColumn);
-            console.log(xKe);
-            
-            console.log(data[xColumn].benda[xKe]);
             const clueDiv = document.createElement('div');
             clueDiv.className = "clue";
             const h2Clue = document.createElement('h2');
@@ -199,6 +194,10 @@
             }
 
 
+            let arrJawab = new Array(xHuruf).fill("-");
+
+            // checkJawabanColom(data, xColumn, xKe, arrJawab);
+
 
             // gap so big
 
@@ -215,43 +214,43 @@
                     const nextInput = inputs[index + 1];
 
                     const iBaris = index % xHuruf;
-                    
+
                     // Cek apakah input sudah terisi dan ada input berikutnya
                     if (input.value.length === 1) {
+                        arrJawab[iBaris] = input.value;
 
-                        data[xColumn].benda[xKe].some((ini, i)=>{
-                            if (input.value == ini){
-                                if (i == (iBaris)){
-                                    input.style.backgroundColor = "var(--terang)";
-                                    input.style.color = "var(--gelap)";
-                                    console.log("sama dan sama");
-                                    cekBerhasil[iBaris] = true;
-                                    return true;
-                                } else {
-                                    input.style.backgroundColor = "#ccc";
-                                    input.style.color = "var(--terang)";
-                                    cekBerhasil[iBaris] = false;
-                                }
-                            } else {
-                                // input.style.backgroundColor = "transparent";
-                                // input.style.color = "var(--terang)";
-                                cekBerhasil[iBaris] = false;
-                            }
-                        });
+                        // data[xColumn].benda[xKe].some((ini, i)=>{
+                        //     if (input.value == ini){
+                        //         if (i == (iBaris)){
+                        //             input.style.backgroundColor = "var(--terang)";
+                        //             input.style.color = "var(--gelap)";
+                        //             cekBerhasil[iBaris] = true;
+                        //             return true;
+                        //         } else {
+                        //             input.style.backgroundColor = "#ccc";
+                        //             input.style.color = "var(--terang)";
+                        //             cekBerhasil[iBaris] = false;
+                        //         }
+                        //     } else {
+                        //         // input.style.backgroundColor = "transparent";
+                        //         // input.style.color = "var(--terang)";
+                        //         cekBerhasil[iBaris] = false;
+                        //     }
+                        // });
 
-                        cekBerhasil.some((apa,i)=>{
-                            if(apa){
-                                if(i == cekBerhasil.length-1){
-                                    alert("tahniah teman, kau dah berjaya menebaknye");
-                                    // location.reload();
-                                    wrapper.innerHTML = "";
-                                    ambilKata();
-                                    tambahSkor();
-                                }
-                            } else {
-                                return true;
-                            }
-                        })
+                        // cekBerhasil.some((apa,i)=>{
+                        //     if(apa){
+                        //         if(i == cekBerhasil.length-1){
+                        //             alert("tahniah teman, kau dah berjaya menebaknye");
+                        //             // location.reload();
+                        //             wrapper.innerHTML = "";
+                        //             ambilKata();
+                        //             tambahSkor();
+                        //         }
+                        //     } else {
+                        //         return true;
+                        //     }
+                        // })
 
                         if(nextInput){
                             nextInput.focus();
@@ -259,6 +258,7 @@
                     }
 
                     if(iBaris == xHuruf-1){
+                        checkJawabanColom(data, xColumn, xKe, arrJawab, parseInt(index), inputs, xHuruf);
                         cekBerhasil = new Array(xHuruf).fill(false)
                         console.log("array di perbaharui jadi false semua");
                     }
@@ -298,6 +298,97 @@
             });
 
         }
+    }
+
+    function checkJawabanColom(data, xColumn, xKe, arrJawab, indexInput, inputs, xHuruf){
+        const kunci = data[xColumn].benda[xKe]
+        console.log(arrJawab);
+        console.log(kunci);
+
+
+        // cek apakah kata benar
+        kunci.some((ini, i)=>{
+            if(ini == arrJawab[i]){
+                if(i == arrJawab.length-1){
+                    alert("tahniah teman, kau dah berjaya menebaknye");
+                    // location.reload();
+                    wrapper.innerHTML = "";
+                    ambilKata();
+                    tambahSkor();
+                }
+            } else {
+                return true;
+            }
+        });
+
+        let warnaInput = new Array(arrJawab.length).fill("hitam");
+        let jumlahHuruf = {};
+        
+        // cek apakah ada huruf yng double dan tambahkan ke list
+        kunci.forEach((ini, i)=>{
+            if(jumlahHuruf[ini]){
+                jumlahHuruf[ini] = jumlahHuruf[ini] + 1
+            } else {
+                jumlahHuruf[ini] = 1
+            }
+        })
+
+        
+        // cek apakah huruf benar dikolom itu
+        arrJawab.forEach((ini, i)=>{
+            if(ini == kunci[i]){
+                jumlahHuruf[ini] -= jumlahHuruf[ini];
+                warnaInput[i] = "hijau";
+            } else {
+                warnaInput[i] = "gelap";
+            }
+        });
+        console.log(warnaInput);
+        console.log(jumlahHuruf);
+
+        // cek apakah huruf benar dikolom bebas
+        arrJawab.forEach((ini, i)=>{
+            kunci.some((lagi, p)=>{
+                if(lagi == ini){
+                    if(jumlahHuruf[ini] == 0){
+                        if(i == p){
+                            warnaInput[i] = "hijau";
+                            return true;
+                        } else {
+                            warnaInput[i] = "gelap"
+                        }
+                    } else {
+                        jumlahHuruf[ini] -= jumlahHuruf[ini];
+                        warnaInput[i] = "semu"
+                        return true;
+                    }
+                } else {
+                }
+            });
+        });
+
+        console.log(warnaInput);
+        console.log(jumlahHuruf);
+
+        // terapkan array dan warnai inputs
+        warnaInput.forEach((ini, i)=>{
+            console.log(indexInput - (xHuruf-1) +parseInt(i));
+            if(ini == "terang"){
+                inputs[indexInput - (xHuruf-1) +parseInt(i)].style.backgroundColor = "var(--terang)";
+                inputs[indexInput - (xHuruf-1) +parseInt(i)].style.color = "var(--gelap)";
+            } else if(ini == "semu"){
+                inputs[indexInput - (xHuruf-1) +parseInt(i)].style.backgroundColor = "#ccc";
+                inputs[indexInput - (xHuruf-1) +parseInt(i)].style.color = "var(--terang)";
+            } else if(ini == "hijau"){
+                inputs[indexInput - (xHuruf-1) +parseInt(i)].style.backgroundColor = "green";
+                inputs[indexInput - (xHuruf-1) +parseInt(i)].style.color = "var(--terang)";
+            } else {
+                inputs[indexInput - (xHuruf-1) +parseInt(i)].style.backgroundColor = "#0a0a0a";
+                inputs[indexInput - (xHuruf-1) +parseInt(i)].style.color = "var(--terang)";
+            }
+        })
+
+
     }
     
 </script>
